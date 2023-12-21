@@ -1,14 +1,4 @@
-- Nombre : Lino Fernando
-- Apellidos: Barrientos Cárdenas
-- Cedula: 10401032
-- Fecha de contratación: 
-- Departamento: Chuquisaca, Bolivia
-- Tipo de contrato: Trabajador Independiente (Freelancer)
-- Cargo: Desarrollador de Software
-- Fecha de nacimiento: 27 de octubre de 2003
-- Estado Civil: Soltero
-- Número de hijos/as: 0 / NA
-- Email: linofernando2703@gmail.com
-- Número de teléfono: +591 74418613
-- Direccion: Av. Guido Villagomez s/n
-- Ciudad: Sucre
+# Albercan Backend
+
+Construido con Django 5.0 y python 3.10
+### Readme en progreso ...
