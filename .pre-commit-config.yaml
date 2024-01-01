@@ -1,0 +1,29 @@
+repos:
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        stages: [commit]
+        language: python
+        language_version: python3.10
+        entry: isort
+        additional_dependencies: [isort]
+        types: [python]
+
+      - id: flake8
+        name: flake8
+        stages: [commit]
+        language: python
+        language_version: python3.10
+        entry: flake8
+        additional_dependencies: [flake8, Flake8-pyproject]
+        types: [python]
+        exclude: setup.py
+
+      - id: pytest
+        name: pytest
+        stages: [push]
+        language: system
+        entry: pytest
+        types: [python]
+        pass_filenames: false
