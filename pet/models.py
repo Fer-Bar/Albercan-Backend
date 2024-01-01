@@ -6,7 +6,13 @@ from utils.datetools import calculate_pet_age, first_of_month
 
 class Pet(models.Model):
     name = models.CharField(max_length=40, blank=False, null=False, verbose_name=_("name"))
-    owner = models.ForeignKey("people.Person", on_delete=models.PROTECT, related_name="pets")
+    owner = models.ForeignKey(
+        "people.Person",
+        on_delete=models.SET_NULL,
+        related_name="pets",
+        null=True,
+        verbose_name=_("owner")
+    )
     birthday = models.DateField(null=True, blank=True, verbose_name=_("birth_date"))
     breed = models.ForeignKey(
         "Breed",
@@ -22,6 +28,10 @@ class Pet(models.Model):
         today = first_of_month(is_datetime=True)
         age = calculate_pet_age(self.birthday, today)
         return _(f"{age.years} years, {age.months} months.")
+
+    @property
+    def has_owner(self):
+        return self.owner is not None
 
     def __str__(self):
         return self.name

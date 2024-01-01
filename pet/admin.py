@@ -6,7 +6,7 @@ from pet.models import Breed, Pet
 @admin.register(Pet)
 class PetAdmin(admin.ModelAdmin):
     search_fields = ["name", "owner"]
-    list_display = ("name", "breed", "age", "owner")
+    list_display = ("name", "breed", "age", "owner", "has_owner")
     readonly_fields = ("age", )
 
 
