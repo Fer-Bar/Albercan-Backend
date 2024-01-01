@@ -48,6 +48,7 @@ class Person(models.Model):
         max_length=150,
         verbose_name=_("last name"),
     )
+    birthday = models.DateField(null=True, blank=True, verbose_name=_("birthday"))
     nationality = models.ForeignKey(
         "structure.Country",
         on_delete=models.SET_NULL,
@@ -87,14 +88,14 @@ class Person(models.Model):
         max_length=255,
         blank=True,
         verbose_name=_("phone number"),
-        help_text=f"+54 11 11111111 {_('(spaces are optional)')}"
+        help_text=f"+591 70101010 {_('(spaces are optional)')}"
     )
     secondary_phone_number = models.CharField(
         max_length=255,
         blank=True,
         null=True,
         verbose_name=_("secondary phone number"),
-        help_text=f"+54 11 11111111 {_('(spaces are optional)')}"
+        help_text=f"+591 70101010 {_('(spaces are optional)')}"
     )
     address = models.CharField(
         max_length=255,
@@ -128,6 +129,13 @@ class Person(models.Model):
         null=True,
         blank=True,
         verbose_name=_("occupation"),
+    )
+    marital_status = models.CharField(
+        choices=MARITAL_STATUS_CHOICES,
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name=_("marital status"),
     )
     picture = models.ImageField(
         upload_to="people_images/",
