@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from pet.models import Pet, Race
+from pet.models import Breed, Pet
 
 
 @admin.register(Pet)
@@ -8,8 +8,8 @@ class PetAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-@admin.register(Race)
-class RaceAdmin(admin.ModelAdmin):
+@admin.register(Breed)
+class BreedAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 

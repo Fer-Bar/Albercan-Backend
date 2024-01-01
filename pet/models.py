@@ -8,13 +8,13 @@ class Pet(models.Model):
     name = models.CharField(max_length=40, blank=False, null=False, verbose_name=_("name"))
     owner = models.ForeignKey("people.Person", on_delete=models.PROTECT)
     birthday = models.DateField(null=True, blank=True, verbose_name=_("birth_date"))
-    race = models.ForeignKey(
-        "Race",
+    breed = models.ForeignKey(
+        "Breed",
         related_name="pet",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        verbose_name=_("race")
+        verbose_name=_("breed")
     )
 
     @property
@@ -27,5 +27,5 @@ class Pet(models.Model):
         return self.name
 
 
-class Race(models.Model):
+class Breed(models.Model):
     name = models.CharField(max_length=40, null=False, blank=False)
