@@ -97,3 +97,9 @@ class PersonAdmin(BasePersonAdmin):
         return request.user.is_superuser and request.user.is_active
 
     inlines = [PetInline,]
+    list_display = ["first_name", "last_name", "list_pets"]
+
+    def list_pets(self, obj):
+        return ", ".join([str(pet) for pet in obj.pets.all()])
+
+    list_pets.short_description = _("Pets")
