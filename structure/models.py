@@ -30,7 +30,7 @@ class Departament(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("name"))
-    department = models.ForeignKey("structure.models.Departament", on_delete=models.CASCADE, verbose_name=_("department"))
+    department = models.ForeignKey("Departament", on_delete=models.CASCADE, verbose_name=_("department"))
 
     def __str__(self) -> str:
         return self.name
