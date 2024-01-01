@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from structure.models import City, Country, Departament
 
 

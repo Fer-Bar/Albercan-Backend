@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from utils.datetools import calculate_pet_age, first_of_month
 
 

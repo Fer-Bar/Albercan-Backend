@@ -1,8 +1,9 @@
 from django.contrib import admin
-from people.models import Occupation, ContactWay, Person
 from django.contrib.admin import ModelAdmin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+
+from people.models import ContactWay, Occupation, Person
 from pet.admin import PetInline
 
 

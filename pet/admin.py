@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from pet.models import Pet, Race
 
 
@@ -15,4 +16,3 @@ class RaceAdmin(admin.ModelAdmin):
 class PetInline(admin.TabularInline):
     model = Pet
     extra = 0
-
