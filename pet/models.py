@@ -11,6 +11,7 @@ class Pet(models.Model):
         on_delete=models.SET_NULL,
         related_name="pets",
         null=True,
+        blank=True,
         verbose_name=_("owner")
     )
     birthday = models.DateField(null=True, blank=True, verbose_name=_("birth_date"))
