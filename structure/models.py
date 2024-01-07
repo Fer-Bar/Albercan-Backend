@@ -19,7 +19,7 @@ class Departament(models.Model):
     country = models.ForeignKey("Country", on_delete=models.CASCADE, verbose_name=_("country"))
 
     def __str__(self) -> str:
-        return f"{self.name} {_('in')} {self.country}"
+        return f"{self.name}, {self.country}"
 
     class Meta:
         ordering = ("name",)
