@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Página Principal
+{% endblock %}
+
+{% block styles %}
+    <link href="{% static "pet/css/main_carousel.css" %}" rel="stylesheet">
+    <link href="{% static "pet/css/steps_to_adopt.css" %}" rel="stylesheet">
+    <link href="{% static "pet/css/main_slider.css" %}" rel="stylesheet">
+    <link href="{% static "pet/css/blog_section.css" %}" rel="stylesheet">
+    <link href="{% static "pet/css/mail_subscription.css" %}" rel="stylesheet">
+    <link href="{% static "pet/css/footer.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% include "pet/main_carousel.html" %}
+    {% include "pet/steps_to_adopt.html" %}
+    {% include "pet/our_pets_section.html" %}
+    {% include "pet/blog_section.html" %}
+    {% include "pet/mail_subscription.html" %}
+    {% include "pet/footer.html" %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'pet/js/carousel.js' %}"></script>
+{% endblock %}
