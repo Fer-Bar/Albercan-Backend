@@ -75,16 +75,16 @@ celerybeat-schedule.*
 *.sage.py 
 
 # Environments 
-.env 
-.venv 
-envs/
+.env
+.venv
+venv/
+ENVS/*
+envs/*
 env/
-venv/ 
 ENV/
-ENVS/
-env.bak/ 
+env.bak/
 venv.bak/ 
-
+!envs/.env.template
 # mkdocs documentation 
 /site 
 
