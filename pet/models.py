@@ -5,7 +5,17 @@ from utils.datetools import calculate_pet_age, first_of_month
 
 
 class Pet(models.Model):
+    GENDER_CHOICES = (
+        ("F", _("Female")),
+        ("M", _("Male")),
+    )
     name = models.CharField(max_length=40, blank=False, null=False, verbose_name=_("name"))
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        blank=True,
+        verbose_name=_("gender"),
+    )
     owner = models.ForeignKey(
         "people.Person",
         on_delete=models.SET_NULL,
@@ -23,6 +33,7 @@ class Pet(models.Model):
         blank=True,
         verbose_name=_("breed")
     )
+    is_neutered = models.BooleanField(default=False, verbose_name=_("is_neutered"))
 
     @property
     def age(self):
