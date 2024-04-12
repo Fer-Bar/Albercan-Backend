@@ -9,7 +9,9 @@ class Pet(models.Model):
         ("F", _("Female")),
         ("M", _("Male")),
     )
-    name = models.CharField(max_length=40, blank=False, null=False, verbose_name=_("name"))
+    name = models.CharField(
+        max_length=40, blank=False, null=False, verbose_name=_("name")
+    )
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,
@@ -22,7 +24,7 @@ class Pet(models.Model):
         related_name="pets",
         null=True,
         blank=True,
-        verbose_name=_("owner")
+        verbose_name=_("owner"),
     )
     birthday = models.DateField(null=True, blank=True, verbose_name=_("birth_date"))
     breed = models.ForeignKey(
@@ -31,9 +33,16 @@ class Pet(models.Model):
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        verbose_name=_("breed")
+        verbose_name=_("breed"),
     )
     is_neutered = models.BooleanField(default=False, verbose_name=_("is_neutered"))
+    picture = models.ImageField(
+        upload_to="pet/",
+        null=True,
+        blank=True,
+        verbose_name=_("picture"),
+        help_text=_("Max size allowed: 20Mbs"),
+    )
 
     @property
     def age(self):
