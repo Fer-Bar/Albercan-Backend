@@ -127,10 +127,14 @@ TIME_INPUT_FORMATS = ["%H:%M"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+MEDIA_URL = env("MEDIA_URL", "media/")
+MEDIA_ROOT = env("MEDIA_ROOT")
+MEDIA_ROOT = f"{(BASE_DIR / MEDIA_ROOT).absolute()}" if MEDIA_ROOT else None
 
 STATIC_URL = env("STATIC_URL", "static/")
-STATIC_ROOT = env('STATIC_ROOT')  # This is when I run the app in prod
-STATIC_ROOT = f'{(BASE_DIR / STATIC_ROOT).absolute()}' if STATIC_ROOT else None
+STATIC_ROOT = env("STATIC_ROOT")  # This is when I run the app in prod
+STATIC_ROOT = f"{(BASE_DIR / STATIC_ROOT).absolute()}" if STATIC_ROOT else None
+
 STATICFILES_DIRS = [
     BASE_DIR / PROJECT_NAME / "static"
 ]
