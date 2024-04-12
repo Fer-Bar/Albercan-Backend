@@ -10,3 +10,4 @@ ADD pyproject.toml poetry.lock /code/
 RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-dev
 
 ADD . /code/
+RUN chmod +x /code/entrypoint.sh
