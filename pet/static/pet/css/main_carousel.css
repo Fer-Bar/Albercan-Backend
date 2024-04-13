@@ -8,7 +8,10 @@
 }
 
 .carousel-item {
-  height: 32rem;
+  height: auto;
+  max-height: 90vh;
+
+
 }
 .carousel-item::before {
   content: "";
@@ -23,6 +26,7 @@
 }
 .carousel-item img {
   filter: blur(2px);
+  width: 100%;
 }
 @media (min-width: 40em) {
   .carousel-caption p {
