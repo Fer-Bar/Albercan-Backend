@@ -51,6 +51,15 @@ class Pet(models.Model):
         return _(f"{age.years} years, {age.months} months.")
 
     @property
+    def picture_url(self):
+        """
+        Return self.picture.url if self.picture is not None,
+        'url' exist and has a value, else, return None.
+        """
+        if self.picture and hasattr(self.picture, "url"):
+            return self.picture.url
+
+    @property
     def has_owner(self):
         return self.owner is not None
 
