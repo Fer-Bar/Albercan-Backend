@@ -3,7 +3,7 @@
     {% for headline in headlines %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <img src="{{ headline.image_url }}"
-             class="img-fluid d-block"
+             class="d-block"
              alt="{{ headline.title }}">
         <div class="container">
           <div class="carousel-caption text-end">
