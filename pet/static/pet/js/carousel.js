@@ -1,47 +1,59 @@
-const wrapper = document.querySelector(".wrapper-carousel");
 const carousel = document.querySelector(".carousel-secondary");
-const firstCardWidth = carousel.querySelector(".card-secondary").offsetWidth;
 const arrowBtns = document.querySelectorAll(".wrapper-carousel i");
-const carouselChildren = [...carousel.children];
+let carouselChildren = [...carousel.children];
+const cardCount = carouselChildren.length;
 
-let isDragging = false, isAutoPlay = false, startX, startScrollLeft, timeoutId;
+let isDragging = false, startX, startScrollLeft;
 
-// Get the number of cards that can fit in the carousel at once
-let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+function getFirstCardWidth() {
+    return carousel.querySelector("ul > li.card-secondary").offsetWidth; // 1st secondary-card
+}
 
-// Insert copies of the last few cards to beginning of carousel for infinite scrolling
-carouselChildren.slice(-cardPerView).reverse().forEach(card => {
-    carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
-});
-
-// Insert copies of the first few cards to end of carousel for infinite scrolling
-carouselChildren.slice(0, cardPerView).forEach(card => {
-    carousel.insertAdjacentHTML("beforeend", card.outerHTML);
-});
-
-// Scroll the carousel at appropriate position to hide first few duplicate cards on Firefox
-carousel.classList.add("no-transition");
-carousel.scrollLeft = carousel.offsetWidth;
-carousel.classList.remove("no-transition");
+function getCardPerView() {
+    return Math.round(carousel.offsetWidth / getFirstCardWidth());
+}
 
 // Add event listeners for the arrow buttons to scroll the carousel left and right
-arrowBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+function addArrowButtonListeners() {
+    arrowBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            let firstCardWidth = getFirstCardWidth();
+            carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+
+            if (btn.id === "left") {
+                // Remove the last card and add it to the beginning
+                let lastCard = carouselChildren.pop();
+                carouselChildren.unshift(lastCard);
+                carousel.insertBefore(lastCard, carousel.firstChild);
+            } else {
+                // Remove the first card and add it to the end
+                let firstCard = carouselChildren.shift();
+                carouselChildren.push(firstCard);
+                carousel.removeChild(firstCard);
+                carousel.appendChild(firstCard);
+            }
+        });
     });
-});
+}
+
+function checkArrowVisibility() {
+    let cardPerView = getCardPerView();
+    if (cardCount >= cardPerView) {
+        arrowBtns.forEach(btn => btn.style.display = "block");
+    } else {
+        arrowBtns.forEach(btn => btn.style.display = "none");
+    }
+}
 
 const dragStart = (e) => {
     isDragging = true;
     carousel.classList.add("dragging");
-    // Records the initial cursor and scroll position of the carousel
     startX = e.pageX;
     startScrollLeft = carousel.scrollLeft;
 }
 
 const dragging = (e) => {
-    if(!isDragging) return; // if isDragging is false return from here
-    // Updates the scroll position of the carousel based on the cursor movement
+    if(!isDragging) return;
     carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
 }
 
@@ -50,35 +62,9 @@ const dragStop = () => {
     carousel.classList.remove("dragging");
 }
 
-const infiniteScroll = () => {
-    // If the carousel is at the beginning, scroll to the end
-    if(carousel.scrollLeft === 0) {
-        carousel.classList.add("no-transition");
-        carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
-        carousel.classList.remove("no-transition");
-    }
-    // If the carousel is at the end, scroll to the beginning
-    else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
-        carousel.classList.add("no-transition");
-        carousel.scrollLeft = carousel.offsetWidth;
-        carousel.classList.remove("no-transition");
-    }
-
-    // Clear existing timeout & start autoplay if mouse is not hovering over carousel
-    clearTimeout(timeoutId);
-    if(!wrapper.matches(":hover")) autoPlay();
-}
-
-const autoPlay = () => {
-    if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
-    // Autoplay the carousel after every 2500 ms
-    timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
-}
-autoPlay();
-
+addArrowButtonListeners();
+window.addEventListener("load", checkArrowVisibility);
+window.addEventListener("resize", checkArrowVisibility);
 carousel.addEventListener("mousedown", dragStart);
 carousel.addEventListener("mousemove", dragging);
 document.addEventListener("mouseup", dragStop);
-carousel.addEventListener("scroll", infiniteScroll);
-wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
-wrapper.addEventListener("mouseleave", autoPlay);
