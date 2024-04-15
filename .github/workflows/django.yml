@@ -28,7 +28,8 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         echo "SECRET_KEY=${SECRET_KEY}" > .env
+        echo "${{ secrets.SECRET_KEY }}"
     - name: Install Dependencies
       run: poetry install
-    - name: Run Tests
+    - name: Run TestsS
       run: poetry run python manage.py test
