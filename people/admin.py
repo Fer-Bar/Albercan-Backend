@@ -25,34 +25,30 @@ class BasePersonAdmin(ModelAdmin):
         "user__email",
     ]
     autocomplete_fields = [
-        "user",
         "occupation",
         "city",
         "nationality",
     ]
 
     def picture_display(self, obj=None):
-        return mark_safe(f'<img src="{obj.picture.url}" height=250>')
+        return mark_safe(
+            f'<img style="object-fit: cover;" src="{obj.picture_url}" height=250 width=100%>'
+        )
 
-    picture_display.short_description = _("See picture")
+    picture_display.short_description = _("Profile Picture")
 
-    def get_readonly_fields(self, request, obj=None):
-        return ["picture_display",]
+    readonly_fields = ("picture_display",)
 
     def get_fieldsets(self, request, obj=None):
         if obj is None or not obj.picture:
             main_fields = [
                 ("picture",),
-                ("first_name", "last_name", "gender"),
             ]
         else:
             main_fields = [
                 (
                     "picture_display",
                     "picture",
-                    "first_name",
-                    "last_name",
-                    "gender",
                 ),
             ]
 
@@ -62,7 +58,7 @@ class BasePersonAdmin(ModelAdmin):
                 {
                     "fields": main_fields
                     + [
-                        ("city",),
+                        ("first_name", "last_name", "gender", "city"),
                         ("personal_email", "birthday"),
                     ]
                 },
@@ -74,10 +70,10 @@ class BasePersonAdmin(ModelAdmin):
                         ("document_type", "document_id"),
                         ("marital_status",),
                         ("phone_number", "secondary_phone_number"),
-                        ("nationality", ),
-                        ("address", ),
-                        ("neighborhood", ),
-                        ("occupation", ),
+                        ("nationality",),
+                        ("address",),
+                        ("neighborhood",),
+                        ("occupation",),
                     ]
                 },
             ),
@@ -86,20 +82,17 @@ class BasePersonAdmin(ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(BasePersonAdmin):
-
-    def get_fieldsets(self, request, obj=None):
-        fieldsets = super().get_fieldsets(request, obj=obj)
-        return fieldsets
+    list_display = ["first_name", "last_name", "list_pets",]
+    inlines = [
+        PetInline,
+    ]
 
     def has_delete_permission(
         self, request, obj=None
     ):  # This allows to delete only if you're a superuser
         return request.user.is_superuser and request.user.is_active
 
-    inlines = [PetInline,]
-    list_display = ["first_name", "last_name", "list_pets"]
-
     def list_pets(self, obj):
         return ", ".join([str(pet) for pet in obj.pets.all()])
 
-    list_pets.short_description = _("Pets")
+    list_pets.short_description = _("My Pets")
