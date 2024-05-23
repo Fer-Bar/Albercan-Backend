@@ -1,17 +1,19 @@
 <div class="container">
-  <div class="wrapper-carousel">
-    <i id="left" class="fa-solid fa-angle-left"></i>
-    <ul class="carousel-secondary">
-      {% for pet in pets %}
-        <li class="card-secondary">
-          <div class="card-img">
-            <img src="{{ pet.picture_url }}" alt="Pet: {{ pet.name }}" draggable="false">
-          </div>
-          <h2>{{ pet.name }}</h2>
-          <span>{{ pet.age }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-    <i id="right" class="fa-solid fa-angle-right"></i>
-  </div>
+  {% if pets %}
+    <div class="wrapper-carousel">
+      <i id="left" class="fa-solid fa-angle-left"></i>
+      <ul class="carousel-secondary">
+        {% for pet in pets %}
+          <li class="card-secondary">
+            <div class="card-img">
+              <img src="{{ pet.picture_url|default:'#' }}" alt="Pet: {{ pet.name }}" draggable="false">
+            </div>
+            <h2>{{ pet.name }}</h2>
+            <span>{{ pet.age }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      <i id="right" class="fa-solid fa-angle-right"></i>
+    </div>
+  {% endif %}
 </div>
