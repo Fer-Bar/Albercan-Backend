@@ -145,6 +145,15 @@ class Person(models.Model):
         help_text=_("Max size allowed: 20Mbs"),
     )
 
+    @property
+    def picture_url(self):
+        """
+        Return self.picture.url if self.picture is not None,
+        'url' exist and has a value, else, return None.
+        """
+        if self.picture and hasattr(self.picture, "url"):
+            return self.picture.url
+
     def create_user(self):
         if self.user_id is not None:
             return
