@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "people",
     "pet",
-    "structure"
+    "structure",
+    "authentication"
 ]
 
 MIDDLEWARE = [
@@ -145,4 +146,4 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/index"
-LOGOUT_REDIRECT_URL = "/account/login"
+LOGOUT_REDIRECT_URL = "/auth/login"
