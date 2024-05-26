@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Nuestros Miembros
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+<ul>
+  {% for person in people %}
+    <li>{{ person }}</li>
+  {% endfor %}
+</ul>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
