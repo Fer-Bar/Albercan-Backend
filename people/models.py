@@ -154,29 +154,6 @@ class Person(models.Model):
         if self.picture and hasattr(self.picture, "url"):
             return self.picture.url
 
-    def create_user(self):
-        if self.user_id is not None:
-            return
-        self.user, _ = User.objects.get_or_create(
-            username=self.personal_email,
-            defaults={
-                "email": self.personal_email,
-                "first_name": self.first_name,
-                "last_name": self.last_name,
-                "is_staff": True
-            }
-        )
-
-    def deactivate_user(self):
-        if not self.user_id:
-            return
-        self.user.is_staff = False
-        self.user.is_active = False
-        self.user.save()
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
 
