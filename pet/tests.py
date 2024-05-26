@@ -24,25 +24,25 @@ class MainPageViewTest(TestCase):
         )
 
     def test_main_page_status_code(self):
-        response = self.client.get(reverse("main_page"))
+        response = self.client.get(reverse("pet:main_page"))
         self.assertEqual(response.status_code, 200)
 
     def test_main_page_template_used(self):
-        response = self.client.get(reverse("main_page"))
+        response = self.client.get(reverse("pet:main_page"))
         self.assertTemplateUsed(response, "pet/main_page.html")
 
     def test_main_page_contains_correct_html(self):
-        response = self.client.get(reverse("main_page"))
+        response = self.client.get(reverse("pet:main_page"))
         self.assertContains(response, "¡Haz un cambio hoy!")
         self.assertContains(response, "Pet1")
         self.assertContains(response, "Pet2")
 
     def test_main_page_does_not_contain_incorrect_html(self):
-        response = self.client.get(reverse("main_page"))
+        response = self.client.get(reverse("pet:main_page"))
         self.assertNotContains(response, "Hello, world!")
 
     def test_main_page_context(self):
-        response = self.client.get(reverse("main_page"))
+        response = self.client.get(reverse("pet:main_page"))
         self.assertTrue("pets" in response.context)
         self.assertTrue("headlines" in response.context)
         self.assertEqual(len(response.context["pets"]), 2)
