@@ -7,6 +7,6 @@ from people.models import Person
 
 @method_decorator(require_http_methods(["GET"]), name='dispatch')
 class PersonListView(ListView):
-    queryset = Person.objects.filter(user__is_staff=True)
+    queryset = Person.objects.filter(user__is_active=True)
     context_object_name = "people"
     template_name = "people/members.html"
