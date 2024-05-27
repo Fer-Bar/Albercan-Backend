@@ -31,6 +31,6 @@ jobs:
     - name: Install Dependencies
       run: poetry install
     - name: Collect Static Files
-      run: python manage.py collectstatic --no-input
+      run: poetry run python manage.py collectstatic --no-input
     - name: Run Tests
       run: poetry run python manage.py test
