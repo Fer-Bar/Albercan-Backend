@@ -23,12 +23,12 @@ PROJECT_NAME = "albercan_backend"
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.BOOL('DEBUG', False)
+DEBUG = env.BOOL("DEBUG", False)
 
-ALLOWED_HOSTS = env.LIST('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = env.LIST("ALLOWED_HOSTS", [])
 
 # Application definition
 
@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "people",
     "pet",
-    "structure"
+    "structure",
+    "authentication",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -59,7 +61,7 @@ ROOT_URLCONF = "albercan_backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / PROJECT_NAME / 'templates'],
+        "DIRS": [BASE_DIR / PROJECT_NAME / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -135,11 +137,21 @@ STATIC_URL = env("STATIC_URL", "static/")
 STATIC_ROOT = env("STATIC_ROOT")  # This is when I run the app in prod
 STATIC_ROOT = f"{(BASE_DIR / STATIC_ROOT).absolute()}" if STATIC_ROOT else None
 
-STATICFILES_DIRS = [
-    BASE_DIR / PROJECT_NAME / "static"
-]
+STATICFILES_DIRS = [BASE_DIR / PROJECT_NAME / "static"]
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = "/index"
+LOGOUT_REDIRECT_URL = "/auth/login"
+CSRF_COOKIE_SECURE = True

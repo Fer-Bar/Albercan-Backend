@@ -1,6 +1,11 @@
 from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
 
 
 class PeopleConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "people"
+    verbose_name = _("People")
+
+    def ready(self):
+        from people import signals  # noqa: F401

@@ -38,3 +38,6 @@ poetry install
 ```bash
 poetry run python manage.py runserver
 ```
+
+## Errors
+En ocasiones los tests no corren porque el STORAGES.staticfiles apunta a whitenoise, pero si lo usamos por el que usa django por defecto ```django.contrib.staticfiles.storage.StaticFilesStorage``` anda todo bien.
