@@ -46,9 +46,10 @@ class Pet(models.Model):
 
     @property
     def age(self):
-        today = first_of_month(is_datetime=True)
-        age = calculate_pet_age(self.birthday, today)
-        return _(f"{age.years} years, {age.months} months.")
+        if self.birthday:
+            today = first_of_month(is_datetime=True)
+            age = calculate_pet_age(self.birthday, today)
+            return _(f"{age.years} years, {age.months} months.")
 
     @property
     def picture_url(self):

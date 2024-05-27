@@ -32,7 +32,7 @@ class PetAdmin(admin.ModelAdmin):
         return (
             (
                 None, {
-                    "fields": picture_fields + [("name", "breed", "gender", "age"), ]
+                    "fields": picture_fields + [("name", "breed", "gender", "birthday", "age"), ]
                 }
             ),
         )
