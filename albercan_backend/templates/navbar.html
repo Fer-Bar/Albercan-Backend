@@ -31,10 +31,14 @@
           <a class="nav-link" href="#">Contáctanos</a>
         </li>
         <li class="nav-item">
+          {% if request.user.is_authenticated %}
           <form id="logout-form" method="post" action="{% url 'authentication:logout' %}">
             {% csrf_token %}
             <button type="submit" class="nav-link">Cerrar Sesión</button>
           </form>
+          {% else %}
+            <a class="nav-link" href="{% url 'authentication:login' %}">Iniciar Sesión</a>
+          {% endif %}
         </li>
       </ul>
     </div>
