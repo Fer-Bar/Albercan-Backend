@@ -29,7 +29,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.BOOL("DEBUG", False)
 
 ALLOWED_HOSTS = env.LIST("ALLOWED_HOSTS", [])
-
+CSRF_TRUSTED_ORIGINS = env.LIST("ALLOWED_HOSTS", [])
 # Application definition
 
 INSTALLED_APPS = [
